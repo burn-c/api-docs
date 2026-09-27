@@ -4,8 +4,12 @@ import { fastifySwagger } from "@fastify/swagger";
 import scalarUI from '@scalar/fastify-api-reference';
 import { getUsersRoute } from "./routes/get-users-route.ts";
 import { createUserRoute } from "./routes/create-user-route.ts";
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 
 const app = fastify();
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
 app.register(fastifyCors, {
   origin: "*",
@@ -27,7 +31,10 @@ app.register(fastifySwagger, {
         }
       }
     }
-  }
+  },
+
+  transform: jsonSchemaTransform,
+
 });
 
 app.register(getUsersRoute)
