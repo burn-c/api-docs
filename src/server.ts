@@ -16,6 +16,16 @@ app.register(fastifySwagger, {
     info: {
       title: 'Example API Docs',
       version: '1.0.0',
+    },
+
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        }
+      }
     }
   }
 });
